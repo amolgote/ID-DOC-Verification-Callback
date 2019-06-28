@@ -1,32 +1,36 @@
-package com.jumio.callback.api.model.DocumentProcessor;
+package com.jumio.callback.api.model.document_processor;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
+
 import io.swagger.annotations.ApiModel;
+
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
 @ApiModel("User Attribute Verification Result data model")
-public class UserAttributeVerificationResult {
+public class UserAttributeVerificationResult implements Serializable {
+
+    @Id
     @Column(name = "user_id")
     private Integer userId;
 
+    @Id
     @Column(name = "verif_user_attrib_id")
     private Integer userAttributeId;
 
+    @Id
     @Column(name = "verif_doc_type_ID")
     private Integer docTypeId;
 
-    @Column(name = "Verif_result")
+    @Column(name = "verif_result")
     private Boolean result;
 
-    @Column(name = "Verif_date")
+    @Column(name = "verif_date")
     private Date verificationDatetime;
-
-    @Column(name = "attrib_name")
-    private String AttributeName;
 
     @Column(name = "attrib_name")
     private String attributeName;
@@ -64,7 +68,6 @@ public class UserAttributeVerificationResult {
     public void setResult(Boolean result) {
         this.result = result;
     }
-
 
     public String getAttributeName() {
         return attributeName;

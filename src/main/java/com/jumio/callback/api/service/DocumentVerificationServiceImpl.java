@@ -1,6 +1,6 @@
 package com.jumio.callback.api.service;
 
-import com.jumio.callback.api.service.DocumentProcessor.DocumentProcessor;
+import com.jumio.callback.api.service.document_processor.DocumentProcessor;
 import com.jumio.callback.api.service.factory.DocumentFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

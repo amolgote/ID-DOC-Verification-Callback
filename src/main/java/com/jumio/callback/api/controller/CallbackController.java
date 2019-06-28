@@ -20,7 +20,7 @@ public class CallbackController {
     DocumentVerificationService documentVerificationService;
 
     @PostMapping(path = "/doc/verification/result", consumes =  MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    @ApiResponses(value = @ApiResponse(code = 204, message = "Jumio callback handler"))
+    @ApiResponses(value = @ApiResponse(code = 204, message = "User Profile Verification Callback handler"))
     public void updateDocumentVerificationResult(@RequestBody MultiValueMap<String, String> docPayload) throws Exception {
         this.documentVerificationService.processDocument(docPayload);
     }

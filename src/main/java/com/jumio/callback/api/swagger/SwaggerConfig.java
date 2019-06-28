@@ -1,12 +1,11 @@
 package com.jumio.callback.api.swagger;
 
 import com.google.common.base.Predicate;
-import com.icw.admin.api.utils.Constants;
+import com.jumio.callback.api.utils.Constants;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.ParameterBuilder;
-import springfox.documentation.schema.ModelRef;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Parameter;
 import springfox.documentation.spi.DocumentationType;

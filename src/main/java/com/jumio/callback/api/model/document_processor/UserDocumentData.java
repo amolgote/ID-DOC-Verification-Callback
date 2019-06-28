@@ -1,15 +1,20 @@
-package com.jumio.callback.api.model.DocumentProcessor;
+package com.jumio.callback.api.model.document_processor;
 import io.swagger.annotations.ApiModel;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
 @ApiModel("User Document data model")
-public class UserDocumentData {
+public class UserDocumentData implements Serializable {
+
+    @Id
     @Column(name = "user_id")
     private Integer userId;
 
+    @Id
     @Column(name = "verif_doc_type_ID")
     private Integer docTypeId;
 
@@ -30,7 +35,7 @@ public class UserDocumentData {
         this.userId = userId;
     }
 
-    public int getDocTypeIdId() {
+    public int getDocTypeId() {
         return docTypeId;
     }
 
