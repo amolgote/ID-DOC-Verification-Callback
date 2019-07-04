@@ -19,10 +19,6 @@ public class OtherDocumentProcessor extends BaseDocumentProcessor implements Doc
 
     @Override
     public void processDocument(MultiValueMap<String, String> payload) {
-        UserDocumentData userDocument = super.GetUserDocument(payload);
-        if (userDocument != null) {
-            UserAttributeVerificationResult userAttributeVerificationResult = this.userAttributeVerificationResultRepository.getUserAttributeResult(userDocument.getUserId(), DocumentAttributesConstant.RESIDENCE, DocumentTypeConstant.OTHER_DOCUMENT);
 
-        }
     }
 }

@@ -52,7 +52,7 @@ public class IdDocumentProcessor extends BaseDocumentProcessor implements Docume
                 }
             }
 
-            UserDocumentData userDocument = super.GetUserDocument(payload);
+            UserDocumentData userDocument = super.GetUserDocument(payload, JumioPayloadConstants.JUMIO_ID_SCAN_REFERENCE);
             this.processIdVerification(payload, userDocument, verificationStatus, icwIdType);
             this.processResidenceVerification(payload, userDocument, verificationStatus, icwIdType);
         }

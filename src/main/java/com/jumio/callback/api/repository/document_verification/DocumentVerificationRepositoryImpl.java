@@ -56,9 +56,15 @@ public class DocumentVerificationRepositoryImpl implements DocumentVerificationR
 
         userDocumentDataQuery.registerStoredProcedureParameter(UserDocumentDataDbConstants.V_PARAM_VERIFICATION_DATA, String.class, ParameterMode.IN);
         userDocumentDataQuery.setParameter(UserDocumentDataDbConstants.V_PARAM_VERIFICATION_DATA, userDocumentData.getData());
-
         userDocumentDataQuery.registerStoredProcedureParameter(UserDocumentDataDbConstants.V_PARAM_DOC_EXPIRATION_DATE, Date.class, ParameterMode.IN);
         userDocumentDataQuery.setParameter(UserDocumentDataDbConstants.V_PARAM_DOC_EXPIRATION_DATE, userDocumentData.getExpirationDate());
+        /*if (userDocumentData.getExpirationDate() == null ) {
+            userDocumentDataQuery.setParameter(UserDocumentDataDbConstants.V_PARAM_DOC_EXPIRATION_DATE, userDocumentData.getExpirationDate());
+        }
+        else{
+            userDocumentDataQuery.setParameter(UserDocumentDataDbConstants.V_PARAM_DOC_EXPIRATION_DATE, null);
+        }
+*/
 
         userDocumentDataQuery.registerStoredProcedureParameter(UserDocumentDataDbConstants.V_STATUS, Integer.class, ParameterMode.OUT);
         userDocumentDataQuery.execute();

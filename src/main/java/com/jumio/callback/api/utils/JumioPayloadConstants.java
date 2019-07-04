@@ -11,12 +11,21 @@ public class JumioPayloadConstants {
 
     public static final String ID_TYPE_PASSPORT = "PASSPORT";
     public static final String ID_TYPE_DRIVING_LICENSE = "DRIVING_LICENSE";
-    public static final String DOC_TRANSACTION = "transaction";
     public static final String DOC_TYPE = "type";
     public static final String DOC_TYPE_UTILITY_BILL = "UB";
     public static final String DOC_TYPE_BANK_STATEMENT = "BS ";
     public static final String DOC_TYPE_TAX_RETURN = "TR  ";
     public static final String JUMIO_ID_SCAN_REFERENCE = "jumioIdScanReference";
+    public static final String DOC_TRANSACTION = "transaction";
+    public static  final String DOC_DOCUMENT = "document";
+    public static  final String DOC_DOCUMENT_TRANSACTION_STATUS = "status";
+    public static  final String DOC_DOCUMENT_TRANSACTION_STATUS_DONE = "DONE";
+    public static  final String DOC_DOCUMENT_EXTRACTED_DATA = "extractedData";
+    public static  final String DOC_DOCUMENT_EXTRACTED_DATA_ADDRESS = "address";
+    public static  final String DOC_DOCUMENT_EXTRACTED_DATA_ADDRESS_POSTALCODE = "postalCode";
+    public static  final String DOC_DOCUMENT_EXTRACTED_DATA_ADDRESS_CITY = "city";
+    public static final String JUMIO_DOC_SCAN_REFERENCE = "scanReference";
+
 
     public static final String ID_SCAN_STATUS = "idScanStatus";
     public static final String VERIFICATION_STATUS = "verificationStatus";
