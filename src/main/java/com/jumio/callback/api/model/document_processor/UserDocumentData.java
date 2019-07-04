@@ -15,7 +15,7 @@ public class UserDocumentData implements Serializable {
     private Integer userId;
 
     @Id
-    @Column(name = "verif_doc_type_ID")
+    @Column(name = "doc_type_ID")
     private Integer docTypeId;
 
     @Column(name = "verif_data")
@@ -26,6 +26,10 @@ public class UserDocumentData implements Serializable {
 
     @Column(name = "create_date")
     private Date createdDate;
+
+    @Column(name = "doc_expiration_date")
+    private Date expirationDate;
+
 
     public int getUserId() {
         return userId;
@@ -64,5 +68,12 @@ public class UserDocumentData implements Serializable {
         this.data = data;
     }
 
+    public Date getExpirationDate() {
+        return expirationDate;
+    }
+
+    public void setExpirationDate(Date expirationDate) {
+        this.expirationDate = expirationDate;
+    }
 }
 

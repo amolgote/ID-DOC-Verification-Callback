@@ -6,12 +6,12 @@ import com.jumio.callback.api.repository.user_attribute_verification.UserAttribu
 import com.jumio.callback.api.repository.user_document_data.UserDocumentDataDbConstants;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
-
 import javax.persistence.EntityManager;
 import javax.persistence.ParameterMode;
 import javax.persistence.PersistenceContext;
 import javax.persistence.StoredProcedureQuery;
 import javax.transaction.Transactional;
+import java.util.Date;
 
 @Repository
 @Qualifier("documentVerificationRepository")
@@ -20,19 +20,10 @@ public class DocumentVerificationRepositoryImpl implements DocumentVerificationR
     @PersistenceContext
     private EntityManager entityMgr;
 
-    @Transactional
+    //@Transactional(rollbackOn = Exception.class)
     @Override
     public Boolean updateUserVerificationDocResultAndDocument(UserDocumentData userDocumentData, UserAttributeVerificationResult userAttributeVerificationResult) {
-
-        Boolean docVerificationResultUpdate = this.updateUserVerificationDocResult(userAttributeVerificationResult);
-        if (docVerificationResultUpdate){
-            return this.updateUserDocument(userDocumentData);
-        }
-        return true;
-    }
-
-    private Boolean updateUserVerificationDocResult(UserAttributeVerificationResult userAttributeVerificationResult) {
-
+        int status;
         StoredProcedureQuery userAttributeResultQuery = entityMgr.createStoredProcedureQuery("p_verif_update_user_attribute_result");
         userAttributeResultQuery.registerStoredProcedureParameter(UserAttributeVerificationResultDbConstants.V_PARAM_USER_ID, Integer.class, ParameterMode.IN);
         userAttributeResultQuery.setParameter(UserAttributeVerificationResultDbConstants.V_PARAM_USER_ID, userAttributeVerificationResult.getUserId());
@@ -46,31 +37,32 @@ public class DocumentVerificationRepositoryImpl implements DocumentVerificationR
         userAttributeResultQuery.registerStoredProcedureParameter(UserAttributeVerificationResultDbConstants.V_PARAM_RESULT, Boolean.class, ParameterMode.IN);
         userAttributeResultQuery.setParameter(UserAttributeVerificationResultDbConstants.V_PARAM_RESULT, userAttributeVerificationResult.getResult());
 
+        userAttributeResultQuery.registerStoredProcedureParameter(UserAttributeVerificationResultDbConstants.V_PARAM_NOTES, String.class, ParameterMode.IN);
+        userAttributeResultQuery.setParameter(UserAttributeVerificationResultDbConstants.V_PARAM_NOTES, userAttributeVerificationResult.getVerificationNotes());
+
         userAttributeResultQuery.registerStoredProcedureParameter(UserAttributeVerificationResultDbConstants.V_STATUS, Integer.class, ParameterMode.OUT);
         userAttributeResultQuery.execute();
-        int status = (int) userAttributeResultQuery.getOutputParameterValue(UserAttributeVerificationResultDbConstants.V_STATUS);
+        status = (int) userAttributeResultQuery.getOutputParameterValue(UserAttributeVerificationResultDbConstants.V_STATUS);
         if (status == 1) {
             return false;
         }
 
-        return true;
-    }
+        StoredProcedureQuery userDocumentDataQuery = entityMgr.createStoredProcedureQuery("p_verif_update_user_document_data");
+        userDocumentDataQuery.registerStoredProcedureParameter(UserDocumentDataDbConstants.V_PARAM_USER_ID, Integer.class, ParameterMode.IN);
+        userDocumentDataQuery.setParameter(UserDocumentDataDbConstants.V_PARAM_USER_ID, userDocumentData.getUserId());
 
-    private Boolean updateUserDocument(UserDocumentData userDocumentData) {
+        userDocumentDataQuery.registerStoredProcedureParameter(UserDocumentDataDbConstants.V_PARAM_DOC_TYPE_ID, Integer.class, ParameterMode.IN);
+        userDocumentDataQuery.setParameter(UserDocumentDataDbConstants.V_PARAM_DOC_TYPE_ID, userDocumentData.getDocTypeId());
 
-        StoredProcedureQuery userAttributeResultQuery = entityMgr.createStoredProcedureQuery("p_verif_update_user_document_data");
-        userAttributeResultQuery.registerStoredProcedureParameter(UserDocumentDataDbConstants.V_PARAM_USER_ID, Integer.class, ParameterMode.IN);
-        userAttributeResultQuery.setParameter(UserDocumentDataDbConstants.V_PARAM_USER_ID, userDocumentData.getUserId());
+        userDocumentDataQuery.registerStoredProcedureParameter(UserDocumentDataDbConstants.V_PARAM_VERIFICATION_DATA, String.class, ParameterMode.IN);
+        userDocumentDataQuery.setParameter(UserDocumentDataDbConstants.V_PARAM_VERIFICATION_DATA, userDocumentData.getData());
 
-        userAttributeResultQuery.registerStoredProcedureParameter(UserDocumentDataDbConstants.V_PARAM_DOC_TYPE_ID, Integer.class, ParameterMode.IN);
-        userAttributeResultQuery.setParameter(UserDocumentDataDbConstants.V_PARAM_DOC_TYPE_ID, userDocumentData.getDocTypeId());
+        userDocumentDataQuery.registerStoredProcedureParameter(UserDocumentDataDbConstants.V_PARAM_DOC_EXPIRATION_DATE, Date.class, ParameterMode.IN);
+        userDocumentDataQuery.setParameter(UserDocumentDataDbConstants.V_PARAM_DOC_EXPIRATION_DATE, userDocumentData.getExpirationDate());
 
-        userAttributeResultQuery.registerStoredProcedureParameter(UserDocumentDataDbConstants.V_PARAM_VERIFICATION_DATA, String.class, ParameterMode.IN);
-        userAttributeResultQuery.setParameter(UserDocumentDataDbConstants.V_PARAM_VERIFICATION_DATA, userDocumentData.getData());
-
-        userAttributeResultQuery.registerStoredProcedureParameter(UserDocumentDataDbConstants.V_STATUS, Integer.class, ParameterMode.OUT);
-        userAttributeResultQuery.execute();
-        int status = (int) userAttributeResultQuery.getOutputParameterValue(UserDocumentDataDbConstants.V_STATUS);
+        userDocumentDataQuery.registerStoredProcedureParameter(UserDocumentDataDbConstants.V_STATUS, Integer.class, ParameterMode.OUT);
+        userDocumentDataQuery.execute();
+        status = (int) userDocumentDataQuery.getOutputParameterValue(UserDocumentDataDbConstants.V_STATUS);
         if (status == 1) {
             return false;
         }

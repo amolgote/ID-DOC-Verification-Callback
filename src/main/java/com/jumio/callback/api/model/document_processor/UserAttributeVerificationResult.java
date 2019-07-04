@@ -19,11 +19,11 @@ public class UserAttributeVerificationResult implements Serializable {
     private Integer userId;
 
     @Id
-    @Column(name = "verif_user_attrib_id")
+    @Column(name = "user_attrib_id")
     private Integer userAttributeId;
 
     @Id
-    @Column(name = "verif_doc_type_ID")
+    @Column(name = "doc_type_ID")
     private Integer docTypeId;
 
     @Column(name = "verif_result")
@@ -32,11 +32,14 @@ public class UserAttributeVerificationResult implements Serializable {
     @Column(name = "verif_date")
     private Date verificationDatetime;
 
-    @Column(name = "attrib_name")
+    @Column(name = "verif_notes")
+    private String verificationNotes;
+
+    /*@Column(name = "attrib_name")
     private String attributeName;
 
     @Column(name = "doc_type")
-    private String documentType;
+    private String documentType;*/
 
     public int getUserId() {
         return userId;
@@ -69,7 +72,7 @@ public class UserAttributeVerificationResult implements Serializable {
         this.result = result;
     }
 
-    public String getAttributeName() {
+    /*public String getAttributeName() {
         return attributeName;
     }
     public void setAttributeName(String attributeName) {
@@ -81,5 +84,13 @@ public class UserAttributeVerificationResult implements Serializable {
     }
     public void setDocumentType(String documentType) {
         this.documentType = documentType;
+    }*/
+
+    public String getVerificationNotes() {
+        return verificationNotes;
+    }
+
+    public void setVerificationNotes(String verificationNotes) {
+        this.verificationNotes = verificationNotes;
     }
 }

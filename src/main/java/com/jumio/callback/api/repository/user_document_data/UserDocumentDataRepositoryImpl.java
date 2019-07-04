@@ -23,8 +23,8 @@ public class UserDocumentDataRepositoryImpl implements UserDocumentDataRepositor
     @Override
     public UserDocumentData getUserDocumentBasedOnScanRefNum(String scanReferenceNumber) {
         List<UserDocumentData> results;
-        StoredProcedureQuery query = entityMgr.createStoredProcedureQuery("p_get_user_document", UserDocumentData.class);
-        query.registerStoredProcedureParameter(UserDocumentDataDbConstants.V_PARAM_SCAN_REFERENCE_NUMBER, Integer.class, ParameterMode.IN);
+        StoredProcedureQuery query = entityMgr.createStoredProcedureQuery("p_verif_get_user_document", UserDocumentData.class);
+        query.registerStoredProcedureParameter(UserDocumentDataDbConstants.V_PARAM_SCAN_REFERENCE_NUMBER, String.class, ParameterMode.IN);
         query.setParameter(UserDocumentDataDbConstants.V_PARAM_SCAN_REFERENCE_NUMBER, scanReferenceNumber);
 
         query.execute();

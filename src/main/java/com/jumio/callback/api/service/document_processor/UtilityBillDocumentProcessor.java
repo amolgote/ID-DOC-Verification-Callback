@@ -7,11 +7,15 @@ import com.jumio.callback.api.model.user.User;
 import com.jumio.callback.api.repository.user.UserRepository;
 import com.jumio.callback.api.repository.user_attribute_verification.UserAttributeVerificationResultRepository;
 import com.jumio.callback.api.utils.DocumentAttributesConstant;
+import com.jumio.callback.api.utils.DocumentTypeConstant;
 import com.jumio.callback.api.utils.JumioPayloadConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 import org.springframework.util.MultiValueMap;
 
+@Service
+@Qualifier("utilityBillDocumentProcessor")
 public class UtilityBillDocumentProcessor extends BaseDocumentProcessor implements DocumentProcessor  {
     @Autowired
     @Qualifier("userAttributeVerificationResultRepository")
@@ -25,7 +29,7 @@ public class UtilityBillDocumentProcessor extends BaseDocumentProcessor implemen
     public void processDocument(MultiValueMap<String, String> payload) {
         UserDocumentData userDocument = super.GetUserDocument(payload);
         if (userDocument != null) {
-            UserAttributeVerificationResult userAttributeVerificationResult = this.userAttributeVerificationResultRepository.getUserAttributeResult(userDocument.getUserId(), DocumentAttributesConstant.RESIDENCE);
+            UserAttributeVerificationResult userAttributeVerificationResult = this.userAttributeVerificationResultRepository.getUserAttributeResult(userDocument.getUserId(), DocumentAttributesConstant.RESIDENCE, DocumentTypeConstant.UTILITY_BILL);
             if (userAttributeVerificationResult != null){
                 if (!userAttributeVerificationResult.getResult()){ //Check if the Residence User attribute is not validated
                     User user = this.userRepository.getUser(userDocument.getUserId());

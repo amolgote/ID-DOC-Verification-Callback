@@ -20,7 +20,7 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public User getUser(int userId) {
         List<User> results;
-        StoredProcedureQuery query = entityMgr.createStoredProcedureQuery("p_get_user_info", User.class);
+        StoredProcedureQuery query = entityMgr.createStoredProcedureQuery("p_verif_get_user_info", User.class);
         query.registerStoredProcedureParameter(UserDbConstants.V_PARAM_USER_ID, Integer.class, ParameterMode.IN);
         query.setParameter(UserDbConstants.V_PARAM_USER_ID, userId);
         query.execute();
