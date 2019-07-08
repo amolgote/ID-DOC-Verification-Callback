@@ -7,10 +7,12 @@ import io.swagger.annotations.ApiModel;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
 
 @Entity
+@Table(name = "verif_user_attrib_result")
 @ApiModel("User Attribute Verification Result data model")
 public class UserAttributeVerificationResult implements Serializable {
 
@@ -23,17 +25,18 @@ public class UserAttributeVerificationResult implements Serializable {
     private Integer userAttributeId;
 
     @Id
-    @Column(name = "doc_type_ID")
+    @Column(name = "doc_type_id")
     private Integer docTypeId;
 
     @Column(name = "verif_result")
     private Boolean result;
 
+    @Column(name = "verif_notes")
+    private String verificationNotes;
+
     @Column(name = "verif_date")
     private Date verificationDatetime;
 
-    @Column(name = "verif_notes")
-    private String verificationNotes;
 
     /*@Column(name = "attrib_name")
     private String attributeName;
